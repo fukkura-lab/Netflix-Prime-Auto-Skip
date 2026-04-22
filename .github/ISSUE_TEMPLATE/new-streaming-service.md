@@ -3,7 +3,8 @@ name: new Streaming Service
 about: add another Streaming Service to the addon
 title: "[Streaming Service] "
 labels: feature
-assignees: ""
+assignees: Dreamlinerm
+
 ---
 
 ### Information
