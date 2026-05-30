@@ -513,6 +513,9 @@ function clickOnCurrentDay() {
 function createLocalList() {
 	const localList: CrunchyList = []
 	document.querySelectorAll("ol.releases li:not(.removed) article.release.js-release").forEach((element) => {
+		const queuedFlag = element.querySelector("div.queue-flag:not(.queued)")
+		const premiereFlag = element.querySelector("div.premiere-flag")
+		if (premiereFlag && !queuedFlag) return
 		const h1 = element.querySelector("h1.season-name a") as HTMLAnchorElement
 		const name = h1?.firstChild?.nextSibling?.textContent
 		const href = h1?.href
