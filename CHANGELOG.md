@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.98
+
+- Hotstar: a lot of bug fixes by @Sathvik6323
+
 ## 1.1.97
 
 - Amazon: Updated UI again, Amazon may do some A/B testing with the video player ui.

@@ -413,10 +413,13 @@ async function addRating(showRating: boolean, optionHideTitles: boolean) {
 					if (isNetflix) {
 						const item = card.closest(".slider-item") as HTMLElement
 						if (item) item.style.display = "none"
-					} else if (isDisney || isHotstar) {
-						const item = (isHotstar
-							? card.closest("[data-testid='tray-card-default']") || card.closest("a") || card.parentElement
-							: card.parentElement) as HTMLElement
+					} else if (isDisney) {
+						const item = card.parentElement as HTMLElement
+						if (item) item.style.display = "none"
+					} else if (isHotstar) {
+						const item = (card.closest("[data-testid='tray-card-default']") ||
+							card.closest("a") ||
+							card.parentElement) as HTMLElement
 						if (item) item.style.display = "none"
 					}
 					settings.value.Statistics.SegmentsSkipped++
@@ -462,9 +465,13 @@ async function addRating(showRating: boolean, optionHideTitles: boolean) {
 }
 function addHideTitleButton(card: HTMLElement, title: string) {
 	// For Hotstar, always target the outermost card container to avoid breaking internal layout
-	const target = (isHotstar
-		? card.closest("[data-testid='tray-card-default']") || card.closest("[data-testid='tray-horizontal-card-hover']") || card
-		: card.parentElement) as HTMLElement
+	const target = (
+		isHotstar
+			? card.closest("[data-testid='tray-card-default']") ||
+				card.closest("[data-testid='tray-horizontal-card-hover']") ||
+				card
+			: card.parentElement
+	) as HTMLElement
 	if (!target || target.querySelector("#hideTitleButton")) return
 
 	const button = document.createElement("button")
@@ -542,7 +549,8 @@ function getCleanTitle(card: HTMLElement, type: number): string | undefined {
 			.replace(/\s\d+$/, "") // Remove trailing number (e.g., "Harry Potter 2" -> "Harry Potter")
 			.trim()
 
-		if (!title || ["show", "movie", "live", "episode", "special", "free"].includes(title.toLowerCase())) title = undefined
+		if (!title || ["show", "movie", "live", "episode", "special", "free"].includes(title.toLowerCase()))
+			title = undefined
 	} else if (isPrimeVideo) {
 		// detail means not live shows
 		if (card.querySelector("a")?.href?.includes("detail")) {
