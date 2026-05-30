@@ -143,6 +143,7 @@ let reverseButtonClicked = false
 let reverseButtonStartTime: number
 let reverseButtonEndTime: number
 async function Crunchyroll_Intro_Outro(video: HTMLVideoElement, time: number) {
+	if (video.paused) return
 	// check if intro or outro
 	const isOutro = time > video.duration / 2
 	if (!settings.value.Crunchyroll?.skipIntro && !isOutro) return
@@ -172,7 +173,7 @@ async function Crunchyroll_Intro_Outro(video: HTMLVideoElement, time: number) {
 				}
 				setTimeout(function () {
 					skipped = false
-				}, 1000)
+				}, 2000)
 			}, settings.value.General.Crunchyroll_skipTimeout)
 		}
 	} else if (!document.querySelector(".reverse-button")) {
