@@ -2,6 +2,8 @@
 
 ## 1.1.98
 
+- Crunchyroll: fixed rewind button behavior.
+- Crunchyroll: fixed skipAfterCredits now going directly to next episode.
 - Crunchyroll: fixed release calendar bug: saves premiere shows in local list.
 - Hotstar: a lot of bug fixes by @Sathvik6323
 

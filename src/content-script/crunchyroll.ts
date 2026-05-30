@@ -154,8 +154,14 @@ async function Crunchyroll_Intro_Outro(video: HTMLVideoElement, time: number) {
 			skipped = true
 			setTimeout(function () {
 				if (isOutro && settings.value.Crunchyroll?.skipAfterCredits) {
-					video.fastSeek(video.duration) // skip to the end of the video
-					console.log("SkipAfterCredits", settings.value.General.Crunchyroll_skipTimeout)
+					const nextEpButton = document.querySelector('[data-testid="next-episode-button"]') as HTMLElement
+					if (nextEpButton) {
+						nextEpButton.click()
+						console.log("Outro skipped", nextEpButton)
+					} else {
+						button?.click()
+						console.log("Outro skipped", button)
+					}
 				} else {
 					button?.click()
 					console.log("Intro skipped", button, settings.value.General.Crunchyroll_skipTimeout)
