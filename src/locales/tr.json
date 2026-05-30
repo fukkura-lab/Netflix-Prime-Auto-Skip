@@ -118,5 +118,7 @@
   "dimLowRatingsSwitch": "Dimm Düşük Değerler",
   "dimLowRatingsDescription": "En Düşük Puanlı Dimm Programları.",
   "disabledSettingsOverviewTitle": "Devre dışı ayarlara genel bakış",
-  "disabledSettingsOverviewDescription": "{1} kategoride {0} ayar devre dışı bırakıldı."
+  "disabledSettingsOverviewDescription": "{1} kategoride {0} ayar devre dışı bırakıldı.",
+  "hideHeaderSwitch": "Oynatıcıda Başlığı Gizle",
+  "hideHeaderDescription": "Ayrıca video oynatıcıdaki Web sitesi başlığını gizler."
 }

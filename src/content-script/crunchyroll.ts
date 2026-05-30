@@ -92,12 +92,38 @@ async function Crunchyroll_bigPlayerStyle() {
 	// keep the header above the player in normal flow (not sticky/overlayed)
 	const style = document.createElement("style")
 	style.id = styleId
-	const styles = /*css*/ `
+	let styles = /*css*/ `
       .video-player-wrapper{
 					max-height: calc(100vw / 1.7777);
           height: 100vh;
       }
   `
+	if (settings.value.Crunchyroll.hideHeader) {
+		styles += /*css*/ `
+			[class^="app-layout__header"] {
+					position: absolute;
+          top: 0;
+          width: 100%;
+          height: 3.75rem;
+          z-index: 999;
+			}
+      .erc-large-header {
+          position: absolute;
+          top: 0;
+          width: 100%;
+          height: 3.75rem;
+          z-index: 999;
+      }
+      .erc-large-header .header-content {
+          position: absolute;
+          top: -3.75rem;
+          transition: top 0.4s, top 0.4s;
+      }
+      .erc-large-header:hover .header-content {
+          top: 0;
+      }
+		`
+	}
 	style.textContent = styles
 	document.head.appendChild(style)
 }

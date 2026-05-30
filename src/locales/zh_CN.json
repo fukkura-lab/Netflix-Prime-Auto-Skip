@@ -118,5 +118,7 @@
   "dimLowRatingsSwitch": "调光低评级",
   "dimLowRatingsDescription": "评分最低的 Dimm 节目。",
   "disabledSettingsOverviewTitle": "禁用设置概览",
-  "disabledSettingsOverviewDescription": "在 {1} 类别中禁用 {0} 设置。"
+  "disabledSettingsOverviewDescription": "在 {1} 类别中禁用 {0} 设置。",
+  "hideHeaderSwitch": "隐藏播放器标题",
+  "hideHeaderDescription": "还能隐藏视频播放器上的网站标题。"
 }

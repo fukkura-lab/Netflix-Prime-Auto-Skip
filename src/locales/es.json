@@ -118,5 +118,7 @@
   "dimLowRatingsSwitch": "Dimm baja clasificación",
   "dimLowRatingsDescription": "Dimm Shows con la calificación más baja.",
   "disabledSettingsOverviewTitle": "Resumen de ajustes desactivados",
-  "disabledSettingsOverviewDescription": "{0} ajustes desactivados en {1} categorías."
+  "disabledSettingsOverviewDescription": "{0} ajustes desactivados en {1} categorías.",
+  "hideHeaderSwitch": "Ocultar cabecera en reproductor",
+  "hideHeaderDescription": "También oculta la cabecera del sitio web en el reproductor de vídeo."
 }

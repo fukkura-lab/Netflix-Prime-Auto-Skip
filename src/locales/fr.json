@@ -118,5 +118,7 @@
   "dimLowRatingsSwitch": "Dimm Low Ratings",
   "dimLowRatingsDescription": "Spectacles Dimm avec la note la plus basse.",
   "disabledSettingsOverviewTitle": "Aperçu des paramètres désactivés",
-  "disabledSettingsOverviewDescription": "{0} paramètres désactivés dans {1} catégories."
+  "disabledSettingsOverviewDescription": "{0} paramètres désactivés dans {1} catégories.",
+  "hideHeaderSwitch": "Masquer l'en-tête du lecteur",
+  "hideHeaderDescription": "Masque également l'en-tête du site Web dans le lecteur vidéo."
 }

@@ -119,5 +119,7 @@
   "dimLowRatingsDescription": "Dimm Shows with the lowest Rating.",
   "primeVideo": "Prime Video",
   "disabledSettingsOverviewTitle": "Disabled settings overview",
-  "disabledSettingsOverviewDescription": "{0} settings disabled in {1} categories."
+  "disabledSettingsOverviewDescription": "{0} settings disabled in {1} categories.",
+  "hideHeaderSwitch": "Hide Header on Player",
+  "hideHeaderDescription": "Also hides the Website header on the video player."
 }

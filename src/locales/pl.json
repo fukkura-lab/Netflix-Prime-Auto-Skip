@@ -118,5 +118,7 @@
   "dimLowRatingsSwitch": "Dimm Low Ratings",
   "dimLowRatingsDescription": "Programy Dimm z najniższą oceną.",
   "disabledSettingsOverviewTitle": "Przegląd wyłączonych ustawień",
-  "disabledSettingsOverviewDescription": "{0} ustawień wyłączonych w {1} kategoriach."
+  "disabledSettingsOverviewDescription": "{0} ustawień wyłączonych w {1} kategoriach.",
+  "hideHeaderSwitch": "Ukryj nagłówek w odtwarzaczu",
+  "hideHeaderDescription": "Ukrywa również nagłówek witryny w odtwarzaczu wideo."
 }

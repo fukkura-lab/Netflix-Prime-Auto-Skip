@@ -119,5 +119,7 @@
   "dimLowRatingsDescription": "Dimm-Shows mit der niedrigsten Bewertung.",
   "primeVideo": "Prime Video",
   "disabledSettingsOverviewTitle": "Übersicht der deaktivierten Einstellungen",
-  "disabledSettingsOverviewDescription": "{0} Einstellungen in {1} Kategorien deaktiviert."
+  "disabledSettingsOverviewDescription": "{0} Einstellungen in {1} Kategorien deaktiviert.",
+  "hideHeaderSwitch": "Kopfzeile im Player ausblenden",
+  "hideHeaderDescription": "Blendet auch die Kopfzeile der Website im Videoplayer aus."
 }

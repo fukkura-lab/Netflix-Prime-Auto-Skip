@@ -118,5 +118,7 @@
   "dimLowRatingsSwitch": "Dimm låg betyg",
   "dimLowRatingsDescription": "Dimm-program med lägst betyg.",
   "disabledSettingsOverviewTitle": "Översikt över inaktiverade inställningar",
-  "disabledSettingsOverviewDescription": "{0} inställningar inaktiverade i {1} kategorier."
+  "disabledSettingsOverviewDescription": "{0} inställningar inaktiverade i {1} kategorier.",
+  "hideHeaderSwitch": "Dölj sidhuvudet på spelaren",
+  "hideHeaderDescription": "Döljer även webbplatsens rubrik på videospelaren."
 }

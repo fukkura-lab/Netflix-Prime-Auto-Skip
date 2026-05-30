@@ -5,6 +5,7 @@
 - Crunchyroll: fixed rewind button behavior.
 - Crunchyroll: fixed skipAfterCredits now going directly to next episode.
 - Crunchyroll: fixed release calendar bug: saves premiere shows in local list.
+- Crunchyroll: added option to not show header on player.
 - Hotstar: a lot of bug fixes by @Sathvik6323
 
 ## 1.1.97

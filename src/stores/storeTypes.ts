@@ -42,6 +42,7 @@ export type settingsType = {
 		releaseCalendar: boolean
 		profile: boolean
 		bigPlayer: boolean
+		hideHeader: boolean
 		filterQueued: boolean
 		dubLanguage: string
 		filterDuplicates: boolean
@@ -143,6 +144,7 @@ export const defaultSettings = {
 		releaseCalendar: true,
 		profile: true,
 		bigPlayer: true,
+		hideHeader: false,
 		filterQueued: true,
 		dubLanguage: "none",
 		filterDuplicates: true,

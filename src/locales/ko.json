@@ -118,5 +118,7 @@
   "dimLowRatingsSwitch": "디밍 낮은 등급",
   "dimLowRatingsDescription": "가장 낮은 등급으로 어둡게 표시합니다.",
   "disabledSettingsOverviewTitle": "비활성화 설정 개요",
-  "disabledSettingsOverviewDescription": "{1} 카테고리에서 {0} 설정을 비활성화했습니다."
+  "disabledSettingsOverviewDescription": "{1} 카테고리에서 {0} 설정을 비활성화했습니다.",
+  "hideHeaderSwitch": "플레이어에서 헤더 숨기기",
+  "hideHeaderDescription": "또한 동영상 플레이어에서 웹사이트 헤더를 숨깁니다."
 }
