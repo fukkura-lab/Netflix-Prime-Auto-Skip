@@ -464,14 +464,15 @@ async function addRating(showRating: boolean, optionHideTitles: boolean) {
 	}
 }
 function addHideTitleButton(card: HTMLElement, title: string) {
-	// For Hotstar, always target the outermost card container to avoid breaking internal layout
-	const target = (
-		isHotstar
-			? card.closest("[data-testid='tray-card-default']") ||
-				card.closest("[data-testid='tray-horizontal-card-hover']") ||
-				card
-			: card.parentElement
-	) as HTMLElement
+	let target: HTMLElement
+	if (isHotstar) {
+		// For Hotstar, always target the outermost card container to avoid breaking internal layout
+		target = (card.closest("[data-testid='tray-card-default']") ||
+			card.closest("[data-testid='tray-horizontal-card-hover']") ||
+			card) as HTMLElement
+	} else {
+		target = card.parentElement as HTMLElement
+	}
 	if (!target || target.querySelector("#hideTitleButton")) return
 
 	const button = document.createElement("button")
