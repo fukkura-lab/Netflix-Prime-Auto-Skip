@@ -169,7 +169,8 @@ let reverseButtonClicked = false
 let reverseButtonStartTime: number
 let reverseButtonEndTime: number
 async function Crunchyroll_Intro_Outro(video: HTMLVideoElement, time: number) {
-	if (video.paused) return
+	// If skips at second 0 it cancels previous watch time
+	if (video.paused || video.currentTime >= 1) return
 	// check if intro or outro
 	const isOutro = time > video.duration / 2
 	if (!settings.value.Crunchyroll?.skipIntro && !isOutro) return

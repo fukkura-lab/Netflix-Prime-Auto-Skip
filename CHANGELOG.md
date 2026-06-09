@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.1.99
+
+- Crunchyroll: fix bug cancel progress if intro at second 0.
+
 ## 1.1.98
 
 - Crunchyroll: fixed rewind button behavior.
