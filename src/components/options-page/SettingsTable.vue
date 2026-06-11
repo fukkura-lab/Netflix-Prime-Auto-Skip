@@ -10,6 +10,7 @@
 				<th class="other">Crunchyroll</th>
 				<th class="other">HBO</th>
 				<th class="other">Paramount+</th>
+				<th class="other">Hulu</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -63,6 +64,47 @@
 				<td class="other">
 					<Switch
 						v-model="settings.Paramount.skipIntro"
+						class="ml-auto"
+					></Switch>
+				</td>
+				<td class="other">
+					<Switch
+						v-model="settings.Hulu.skipIntro"
+						class="ml-auto"
+					></Switch>
+				</td>
+			</tr>
+			<tr>
+				<td class="tooltip flex">
+					<p>{{ $t("skipRecapSwitch") }}</p>
+					<i-mdi-help-circle height="1rem" />
+					<div
+						class="tooltip-content text-primary-content"
+						style="transform: unset; inset: auto auto var(--tt-off) 0%"
+					>
+						{{ $t("skipRecapDescription") }}
+					</div>
+				</td>
+				<td>
+					<Switch
+						v-model="skipRecap"
+						class="ml-auto"
+					></Switch>
+				</td>
+				<td class="other">
+					<Switch
+						v-model="settings.Netflix.skipRecap"
+						class="ml-auto"
+					></Switch>
+				</td>
+				<td class="other"><span class="opacity-30 select-none">—</span></td>
+				<td class="other"><span class="opacity-30 select-none">—</span></td>
+				<td class="other"><span class="opacity-30 select-none">—</span></td>
+				<td class="other"><span class="opacity-30 select-none">—</span></td>
+				<td class="other"><span class="opacity-30 select-none">—</span></td>
+				<td class="other">
+					<Switch
+						v-model="settings.Hulu.skipRecap"
 						class="ml-auto"
 					></Switch>
 				</td>
@@ -120,6 +162,7 @@
 						class="ml-auto"
 					></Switch>
 				</td>
+				<td class="other"><span class="opacity-30 select-none">—</span></td>
 			</tr>
 			<tr>
 				<td class="tooltip flex">
@@ -156,7 +199,7 @@
 						class="ml-auto"
 					></Switch>
 				</td>
-				<td class="other">➖</td>
+				<td class="other"><span class="opacity-30 select-none">—</span></td>
 				<td class="other">
 					<Switch
 						v-model="HBOWatchCredits"
@@ -169,6 +212,7 @@
 						class="ml-auto"
 					></Switch>
 				</td>
+				<td class="other"><span class="opacity-30 select-none">—</span></td>
 			</tr>
 			<tr>
 				<td class="tooltip flex">
@@ -205,14 +249,15 @@
 						class="ml-auto"
 					></Switch>
 				</td>
-				<td class="other">➖</td>
-				<td class="other">➖</td>
+				<td class="other"><span class="opacity-30 select-none">—</span></td>
+				<td class="other"><span class="opacity-30 select-none">—</span></td>
 				<td class="other">
 					<Switch
 						v-model="settings.Paramount.skipAd"
 						class="ml-auto"
 					></Switch>
 				</td>
+				<td class="other"><span class="opacity-30 select-none">—</span></td>
 			</tr>
 			<tr>
 				<td class="tooltip flex">
@@ -249,7 +294,7 @@
 						class="ml-auto"
 					></Switch>
 				</td>
-				<td class="other">➖</td>
+				<td class="other"><span class="opacity-30 select-none">—</span></td>
 				<td class="other">
 					<Switch
 						v-model="settings.HBO.showRating"
@@ -262,6 +307,7 @@
 						class="ml-auto"
 					></Switch>
 				</td>
+				<td class="other"><span class="opacity-30 select-none">—</span></td>
 			</tr>
 			<tr>
 				<td class="tooltip flex">
@@ -316,6 +362,7 @@
 						class="ml-auto"
 					></Switch>
 				</td>
+				<td class="other"><span class="opacity-30 select-none">—</span></td>
 			</tr>
 			<tr>
 				<td class="tooltip flex">
@@ -340,16 +387,17 @@
 						class="ml-auto"
 					></Switch>
 				</td>
-				<td class="other">➖</td>
+				<td class="other"><span class="opacity-30 select-none">—</span></td>
 				<td class="other">
 					<Switch
 						v-model="settings.Disney.hideTitles"
 						class="ml-auto"
 					></Switch>
 				</td>
-				<td class="other">➖</td>
-				<td class="other">➖</td>
-				<td class="other">➖</td>
+				<td class="other"><span class="opacity-30 select-none">—</span></td>
+				<td class="other"><span class="opacity-30 select-none">—</span></td>
+				<td class="other"><span class="opacity-30 select-none">—</span></td>
+				<td class="other"><span class="opacity-30 select-none">—</span></td>
 			</tr>
 		</tbody>
 	</table>
@@ -484,11 +532,20 @@ const skipAd = computed({
 })
 
 const speedSlider = computed({
-	get: () => streamingServices.every((service) => settings.value[service].speedSlider),
+	get: () => streamingServices.every((service) => settings.value[service]?.speedSlider ?? true),
 	set: (value) => {
 		streamingServices.forEach((service) => {
-			settings.value[service].speedSlider = value
+			if (settings.value[service]?.speedSlider !== undefined) {
+				settings.value[service].speedSlider = value
+			}
 		})
+	},
+})
+
+const skipRecap = computed({
+	get: () => settings.value.Netflix.skipRecap && settings.value.Hulu.skipRecap,
+	set: (value) => {
+		settings.value.Netflix.skipRecap = settings.value.Hulu.skipRecap = value
 	},
 })
 
@@ -515,33 +572,33 @@ const hideTitles = computed({
 
 <style scoped>
 @reference "@/assets/base.css";
-table {
-	@apply border-[1px] border-solid border-primary-content;
-}
-.featureTable tr *:nth-of-type(2) {
-	@apply border-r-[1px] border-primary-content;
-}
-.featureTable tr td:nth-of-type(2) label {
-	margin-right: 20px;
-}
 .featureTable {
-	border-collapse: collapse;
+	@apply w-full max-w-4xl border-separate border-spacing-0 rounded-xl border border-base-content/15 overflow-hidden my-2;
 }
 th,
 td {
 	text-align: center;
 }
+th {
+	@apply px-3 py-2.5 text-xs font-semibold uppercase tracking-wider opacity-70 bg-base-content/5;
+}
+td {
+	@apply px-3 py-2 border-t border-base-content/10;
+}
+tbody tr:hover td {
+	@apply bg-base-content/5;
+}
+.featureTable tr *:nth-of-type(2) {
+	@apply border-r border-base-content/15;
+}
+.featureTable td:first-of-type {
+	text-align: left;
+}
 p {
-	@apply m-0;
+	@apply m-0 text-base;
 }
 
 @media only screen and (max-width: 800px), only screen and (max-height: 600px) {
-	/* label {
-		transform: scale(0.8);
-	} */
-	.featureTable tr td:nth-of-type(2) label {
-		margin-right: unset;
-	}
 	.other {
 		display: none;
 	}

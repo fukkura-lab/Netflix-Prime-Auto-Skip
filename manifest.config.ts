@@ -62,6 +62,10 @@ export default {
 			js: ["src/content-script/paramount.ts"],
 			matches: ["*://*.paramountplus.com/*"],
 		},
+		{
+			js: ["src/content-script/hulu.ts"],
+			matches: ["*://*.hulu.com/*", "*://*.hulu.jp/*"],
+		},
 	],
 	options_page: "src/ui/options-page/index.html",
 	permissions: ["storage"],

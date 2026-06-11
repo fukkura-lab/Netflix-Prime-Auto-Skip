@@ -265,10 +265,12 @@ const blockAds = computed({
 })
 
 const speedSlider = computed({
-	get: () => streamingServices.every((service) => settings.value[service].speedSlider),
+	get: () => streamingServices.every((service) => settings.value[service]?.speedSlider ?? true),
 	set: (value) => {
 		streamingServices.forEach((service) => {
-			settings.value[service].speedSlider = value
+			if (settings.value[service]?.speedSlider !== undefined) {
+				settings.value[service].speedSlider = value
+			}
 		})
 	},
 })

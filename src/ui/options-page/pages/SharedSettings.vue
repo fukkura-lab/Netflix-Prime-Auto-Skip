@@ -56,11 +56,12 @@ function removeAllTitles() {
 		</p>
 		<hr />
 		<p>{{ $t("editRatings") }}</p>
-		<table>
+		<table class="ratingTable">
 			<thead>
 				<tr>
 					<th>{{ $t("pickColor") }}</th>
 					<th>{{ $t("pickRating") }}</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -71,31 +72,33 @@ function removeAllTitles() {
 					<td>
 						<div class="dropdown">
 							<div
-								style="width: 30px; height: 30px"
+								class="swatch"
 								:style="{ backgroundColor: threshold.color }"
 								tabindex="0"
 								role="button"
 							></div>
 							<div
 								tabindex="0"
-								class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm z-10"
+								class="dropdown-content menu bg-base-100 rounded-box w-52 p-2 shadow-sm z-10"
 							>
 								<ColorPicker v-model="threshold.color" />
 							</div>
 						</div>
 					</td>
-					<td class="flex">
-						<p>&lt;=</p>
-						<input
-							v-model="threshold.value"
-							type="number"
-							class="input border-inherit"
-							:disabled="threshold.value === 10"
-						/>
+					<td>
+						<div class="flex items-center gap-2">
+							<span class="text-base opacity-60">≦</span>
+							<input
+								v-model="threshold.value"
+								type="number"
+								class="input input-sm w-24 border-inherit"
+								:disabled="threshold.value === 10"
+							/>
+						</div>
 					</td>
 					<td>
 						<button
-							class="btn btn-error"
+							class="btn btn-ghost btn-sm text-error"
 							@click="settings.General.RatingThresholds[index] = defaultSettings.General.RatingThresholds[index]"
 						>
 							{{ $t("reset") }}
@@ -126,6 +129,17 @@ function removeAllTitles() {
 	</div>
 	<p class="description">
 		{{ $t("doubleClickDescription") }}
+	</p>
+	<hr />
+	<div class="line flex">
+		<p>{{ $t("pipSwitch") }}</p>
+		<Switch
+			v-model="settings.Video.pip"
+			class="ml-auto"
+		></Switch>
+	</div>
+	<p class="description">
+		{{ $t("pipDescription") }}
 	</p>
 	<hr />
 	<div class="line flex">
@@ -172,7 +186,7 @@ function removeAllTitles() {
 		{{ $t("speedSliderDescription") }}
 	</p>
 	<p>{{ $t("sliderOptions") }}</p>
-	<table>
+	<table class="sliderTable">
 		<tbody>
 			<tr>
 				<td>
@@ -182,7 +196,7 @@ function removeAllTitles() {
 					<input
 						v-model="settings.General.sliderSteps"
 						type="number"
-						class="input border-inherit"
+						class="input input-sm w-24 border-inherit"
 					/>
 				</td>
 			</tr>
@@ -194,7 +208,7 @@ function removeAllTitles() {
 					<input
 						v-model="settings.General.sliderMin"
 						type="number"
-						class="input border-inherit"
+						class="input input-sm w-24 border-inherit"
 					/>
 				</td>
 			</tr>
@@ -206,7 +220,7 @@ function removeAllTitles() {
 					<input
 						v-model="settings.General.sliderMax"
 						type="number"
-						class="input border-inherit"
+						class="input input-sm w-24 border-inherit"
 					/>
 				</td>
 			</tr>
@@ -215,7 +229,7 @@ function removeAllTitles() {
 					<p>{{ $t("sliderPreview") }}</p>
 				</td>
 				<td>
-					<div class="flex">
+					<div class="flex items-center gap-3">
 						<input
 							v-model="SliderPreview"
 							type="range"
@@ -223,9 +237,9 @@ function removeAllTitles() {
 							:max="settings.General.sliderMax"
 							value="1.0"
 							:step="settings.General.sliderSteps"
-							style="background: rgb(221, 221, 221); width: 200px"
+							class="range range-sm w-52"
 						/>
-						<p>{{ SliderPreview / 10 + "x" }}</p>
+						<p class="text-base opacity-80">{{ SliderPreview / 10 + "x" }}</p>
 					</div>
 				</td>
 			</tr>
@@ -255,6 +269,7 @@ function removeAllTitles() {
 	<!-- <div style="margin-top: 5%"></div> -->
 </template>
 <style scoped>
+@reference "@/assets/base.css";
 .grid-container {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -263,11 +278,18 @@ function removeAllTitles() {
 	overflow-y: auto;
 }
 .grid-item {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 5px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
+	@apply flex justify-between items-center text-sm py-1.5 px-2.5 rounded-lg border border-base-content/20;
+}
+.ratingTable th {
+	@apply text-xs font-semibold uppercase tracking-wide opacity-60 text-left pb-1 pr-4;
+}
+.ratingTable td {
+	@apply py-1 pr-4;
+}
+.swatch {
+	@apply w-8 h-8 rounded-lg ring-1 ring-base-content/25 cursor-pointer;
+}
+.sliderTable td {
+	@apply py-1 pr-4;
 }
 </style>

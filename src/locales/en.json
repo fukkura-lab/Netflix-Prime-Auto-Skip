@@ -85,6 +85,8 @@
   "bigPlayerDescription": "Extends the video size to the entire browser window without full screen.",
   "doubleClickSwitch": "Fullscreen by double clicking:",
   "doubleClickDescription": "If you double click on the video it will go to fullscreen.",
+  "pipSwitch": "Picture-in-Picture shortcut:",
+  "pipDescription": "Press P on the player to pop the video out into a floating Picture-in-Picture window.",
   "scrollVolumeSwitch": "Scroll for volume:",
   "scrollVolumeDescription": "Scrolling up or down on the Sound Icon will change the volume.",
   "disneyAdDescription": "Time of skipped Disney Ads.",

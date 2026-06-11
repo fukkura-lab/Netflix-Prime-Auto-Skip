@@ -1,3 +1,3 @@
-export const streamingServices = ["Amazon", "Netflix", "Disney", "Crunchyroll", "HBO", "Paramount"] as const
+export const streamingServices = ["Amazon", "Netflix", "Disney", "Crunchyroll", "HBO", "Paramount", "Hulu"] as const
 
 export type StreamingService = (typeof streamingServices)[number]

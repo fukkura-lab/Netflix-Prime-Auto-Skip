@@ -85,6 +85,8 @@
   "bigPlayerDescription": "フルスクリーンにせず、ビデオをブラウザウィンドウ全体に広げます。",
   "doubleClickSwitch": "ダブルクリックでフルスクリーン：",
   "doubleClickDescription": "ビデオをダブルクリックするとフルスクリーンになります。",
+  "pipSwitch": "PiPショートカット：",
+  "pipDescription": "プレーヤーで P キーを押すと、動画を小窓（ピクチャー・イン・ピクチャー）で再生できます。もう一度押すと元に戻ります。",
   "scrollVolumeSwitch": "スクロールで音量調整：",
   "scrollVolumeDescription": "音量アイコンの上でスクロールすると音量を変更できます。",
   "disneyAdDescription": "スキップしたDisney+広告の時間。",

@@ -62,6 +62,15 @@ export type settingsType = {
 		showRating: boolean
 		skipAd: boolean
 	}
+	Hulu: {
+		skipIntro: boolean
+		skipRecap: boolean
+		// not implemented for Hulu; optional so shared toggles can probe them safely
+		skipCredits?: boolean
+		watchCredits?: boolean
+		speedSlider?: boolean
+		showRating?: boolean
+	}
 	Video: {
 		playOnFullScreen: boolean
 		epilepsy: boolean
@@ -70,6 +79,7 @@ export type settingsType = {
 		scrollVolume: boolean
 		showYear: boolean
 		dimLowRatings: boolean
+		pip: boolean
 	}
 	Statistics: {
 		AmazonAdTimeSkipped: number
@@ -164,6 +174,10 @@ export const defaultSettings = {
 		showRating: true,
 		skipAd: true,
 	},
+	Hulu: {
+		skipIntro: true,
+		skipRecap: true,
+	},
 	Video: {
 		playOnFullScreen: true,
 		epilepsy: false,
@@ -172,6 +186,7 @@ export const defaultSettings = {
 		scrollVolume: true,
 		showYear: false,
 		dimLowRatings: false,
+		pip: true,
 	},
 	Statistics: {
 		AmazonAdTimeSkipped: 0,

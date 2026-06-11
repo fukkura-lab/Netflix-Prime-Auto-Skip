@@ -32,6 +32,7 @@ export enum Platforms {
 	Crunchyroll = "crunchyroll",
 	HBO = "hbo",
 	Paramount = "paramount",
+	Hulu = "hulu",
 }
 
 export async function startSharedFunctions(platform: Platforms) {
@@ -48,7 +49,33 @@ export async function startSharedFunctions(platform: Platforms) {
 		console.log("hideTitles", hideTitles.value)
 	}
 	if (settings.value.Video.playOnFullScreen) startPlayOnFullScreen()
+	if (settings.value.Video?.pip ?? true) startPiPShortcut()
 	getDBCache()
+}
+
+// toggle Picture-in-Picture with the "p" key on any supported player
+function startPiPShortcut() {
+	document.addEventListener("keydown", (event: KeyboardEvent) => {
+		if (event.key !== "p" || event.repeat) return
+		const target = event.target as HTMLElement
+		if (target?.tagName === "INPUT" || target?.tagName === "TEXTAREA" || target?.isContentEditable) return
+		togglePictureInPicture()
+	})
+}
+async function togglePictureInPicture() {
+	try {
+		if (document.pictureInPictureElement) {
+			await document.exitPictureInPicture()
+		} else {
+			const video = document.querySelector("video") as HTMLVideoElement
+			if (!video || !document.pictureInPictureEnabled) return
+			// some players (e.g. Netflix) set this attribute to block PiP
+			video.disablePictureInPicture = false
+			await video.requestPictureInPicture()
+		}
+	} catch (error) {
+		console.log("PiP toggle failed", error)
+	}
 }
 export function getCurrentEpisodeNumber(title: string | null | undefined) {
 	if (!title) return null
