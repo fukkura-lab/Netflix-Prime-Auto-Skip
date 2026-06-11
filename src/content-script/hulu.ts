@@ -19,16 +19,24 @@ async function startHulu() {
 }
 
 // hulu.jp force-exits Picture-in-Picture ~1ms after it starts (verified via
-// enter/leave event timing). Neuter the page-world exit function so the player
-// cannot close PiP. Our own P-key toggle lives in the isolated content-script
-// world with an untouched prototype, and the PiP window's close button is
-// browser UI, so the user can always exit. hulu.jp serves no CSP, so an inline
-// script tag is fine here.
+// enter/leave event timing). Two defenses, both needed only against page JS —
+// the PiP window's close button is browser UI and our own P-key toggle lives
+// in the isolated content-script world, so the user can always exit.
 function blockForcedPiPExit() {
-	const script = document.createElement("script")
-	script.textContent = "Document.prototype.exitPictureInPicture = function () { return Promise.resolve() }"
-	;(document.head || document.documentElement).appendChild(script)
-	script.remove()
+	// 1) hide the enter event from the page: capture on window fires before the
+	// player's listener on the video, and DOM propagation is shared across
+	// worlds, so stopImmediatePropagation prevents the force-exit handler.
+	window.addEventListener("enterpictureinpicture", (event) => event.stopImmediatePropagation(), true)
+	// 2) neuter the page-world exit function via an injected inline script
+	try {
+		const script = document.createElement("script")
+		script.textContent = "Document.prototype.exitPictureInPicture = function () { return Promise.resolve() }"
+		;(document.head || document.documentElement).appendChild(script)
+		script.remove()
+		console.log("Hulu: PiP exit patch injected")
+	} catch (error) {
+		console.log("Hulu: PiP exit patch failed", error)
+	}
 }
 
 // #region Hulu
