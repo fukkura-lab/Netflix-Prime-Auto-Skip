@@ -8,11 +8,13 @@ function callback(tabs: Array<{ url?: string }>) {
 	const isNetflix = /.netflix./i.test(currentUrl)
 	const isDisney = /.disneyplus.|.starplus.|.hotstar./i.test(currentUrl)
 	const isCrunchyroll = /.crunchyroll./i.test(currentUrl)
+	const isHulu = /.hulu\.(com|jp)./i.test(currentUrl)
 	// const isHBO = /max/i.test(currentUrl);
 	if (isPrimeVideo) router.push("/action-popup/Amazon")
 	else if (isNetflix) router.push("/action-popup/Netflix")
 	else if (isDisney) router.push("/action-popup/Disney")
 	else if (isCrunchyroll) router.push("/action-popup/Crunchyroll")
+	else if (isHulu) router.push("/action-popup/Hulu")
 	// else if (isHBO) Menu("HBO");
 }
 const isMobile = /mobile|streamingEnhanced/i.test(navigator.userAgent)

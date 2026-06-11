@@ -55,12 +55,17 @@ export async function startSharedFunctions(platform: Platforms) {
 
 // toggle Picture-in-Picture with the "p" key on any supported player
 function startPiPShortcut() {
-	document.addEventListener("keydown", (event: KeyboardEvent) => {
-		if (event.key !== "p" || event.repeat) return
-		const target = event.target as HTMLElement
-		if (target?.tagName === "INPUT" || target?.tagName === "TEXTAREA" || target?.isContentEditable) return
-		togglePictureInPicture()
-	})
+	// capture phase on window so player key handlers cannot swallow the event
+	window.addEventListener(
+		"keydown",
+		(event: KeyboardEvent) => {
+			if (event.key !== "p" || event.repeat) return
+			const target = event.target as HTMLElement
+			if (target?.tagName === "INPUT" || target?.tagName === "TEXTAREA" || target?.isContentEditable) return
+			togglePictureInPicture()
+		},
+		true,
+	)
 }
 async function togglePictureInPicture() {
 	try {

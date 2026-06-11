@@ -15,17 +15,36 @@ async function startHulu() {
 	logStartOfAddon()
 	startSharedFunctions(Platforms.Hulu)
 	HuluObserver.observe(document, config)
+	if (settings.value.Video?.pip ?? true) blockForcedPiPExit()
+}
+
+// hulu.jp force-exits Picture-in-Picture ~1ms after it starts (verified via
+// enter/leave event timing). Neuter the page-world exit function so the player
+// cannot close PiP. Our own P-key toggle lives in the isolated content-script
+// world with an untouched prototype, and the PiP window's close button is
+// browser UI, so the user can always exit. hulu.jp serves no CSP, so an inline
+// script tag is fine here.
+function blockForcedPiPExit() {
+	const script = document.createElement("script")
+	script.textContent = "Document.prototype.exitPictureInPicture = function () { return Promise.resolve() }"
+	;(document.head || document.documentElement).appendChild(script)
+	script.remove()
 }
 
 // #region Hulu
-// Works on both hulu.com (US) and hulu.jp (Japan): the player markup differs,
-// so skip buttons are matched by their visible text/aria-label instead of selectors.
-const introRegex = /skip intro|skip opening|オープニング(を)?スキップ|OP(を)?スキップ/i
+// Works on both hulu.com (US) and hulu.jp (Japan).
+// hulu.jp: the skip control is a plain <div class="opening-skip">本編へスキップ</div>
+// (not a <button>), so it is matched by class first. hulu.com uses real buttons,
+// matched by their visible text/aria-label.
+const introRegex = /skip intro|skip opening|本編(へ|に)スキップ|オープニング(を)?スキップ|OP(を)?スキップ/i
 const recapRegex = /skip recap|あらすじ(を)?スキップ|前回(の)?あらすじ/i
 const genericSkipRegex = /^(skip|スキップ)$/i
 
 type SkipKind = "intro" | "recap" | "generic"
 function findSkipButton(): { el: HTMLElement; kind: SkipKind } | null {
+	// hulu.jp player (verified on www.hulu.jp/watch/*)
+	const jpSkip = document.querySelector<HTMLElement>("div.opening-skip")
+	if (jpSkip && jpSkip.offsetParent !== null) return { el: jpSkip, kind: "intro" }
 	const candidates = Array.from(document.querySelectorAll<HTMLElement>('button, [role="button"]'))
 	for (const el of candidates) {
 		const text = `${el.textContent ?? ""} ${el.getAttribute("aria-label") ?? ""}`.trim()

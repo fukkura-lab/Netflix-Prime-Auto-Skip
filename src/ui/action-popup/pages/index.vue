@@ -107,6 +107,18 @@
 		</div>
 		<div class="tooltip">
 			<div class="tooltip-content">
+				<div class="text-2xl font-black">Hulu</div>
+			</div>
+			<RouterLink
+				to="/action-popup/Hulu"
+				class="popupMenuButton flex"
+				draggable="false"
+			>
+				<i-mdi-hulu class="icon" />
+			</RouterLink>
+		</div>
+		<div class="tooltip">
+			<div class="tooltip-content">
 				<div class="text-2xl font-black">{{ $t("statisticPageTitle") }}</div>
 			</div>
 			<RouterLink

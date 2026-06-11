@@ -125,6 +125,15 @@ watch(
 					<div>Crunchyroll</div>
 				</RouterLink>
 				<RouterLink
+					to="/options-page/Hulu"
+					class="menuButton flex"
+					:class="hash.endsWith('Hulu') ? 'bg-netflix' : 'bg-primary'"
+					draggable="false"
+				>
+					<i-mdi-hulu class="icon" />
+					<div>Hulu</div>
+				</RouterLink>
+				<RouterLink
 					to="/options-page/Backup"
 					class="menuButton flex"
 					:class="hash.endsWith('Backup') ? 'bg-netflix' : 'bg-primary'"

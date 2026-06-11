@@ -54,6 +54,13 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/action-popup/Hulu': RouteRecordInfo<
+      '/action-popup/Hulu',
+      '/action-popup/Hulu',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     '/action-popup/Netflix': RouteRecordInfo<
       '/action-popup/Netflix',
       '/action-popup/Netflix',
@@ -124,6 +131,13 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/options-page/Hulu': RouteRecordInfo<
+      '/options-page/Hulu',
+      '/options-page/Hulu',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     '/options-page/install': RouteRecordInfo<
       '/options-page/install',
       '/options-page/install',
@@ -189,6 +203,12 @@ declare module 'vue-router/auto-routes' {
       views:
         | never
     }
+    'src/ui/action-popup/pages/Hulu.vue': {
+      routes:
+        | '/action-popup/Hulu'
+      views:
+        | never
+    }
     'src/ui/action-popup/pages/Netflix.vue': {
       routes:
         | '/action-popup/Netflix'
@@ -246,6 +266,12 @@ declare module 'vue-router/auto-routes' {
     'src/ui/options-page/pages/Disney.vue': {
       routes:
         | '/options-page/Disney'
+      views:
+        | never
+    }
+    'src/ui/options-page/pages/Hulu.vue': {
+      routes:
+        | '/options-page/Hulu'
       views:
         | never
     }
