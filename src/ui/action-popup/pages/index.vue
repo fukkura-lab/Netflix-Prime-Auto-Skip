@@ -1,6 +1,4 @@
-<script setup lang="ts">
-const githubUrl = __GITHUB_URL__
-</script>
+<script setup lang="ts"></script>
 
 <template>
 	<div class="grid grid-cols-3 gap-4">
@@ -122,27 +120,6 @@ const githubUrl = __GITHUB_URL__
 				/>
 			</RouterLink>
 		</div>
-	</div>
-	<div class="grid grid-cols-2 gap-2 pt-2">
-		<a
-			class="btn btn-secondary rounded-2xl"
-			:href="githubUrl"
-			target="_blank"
-		>
-			<i-mdi-github class="icon" />
-			Github
-		</a>
-		<a
-			class="btn btn-secondary rounded-2xl"
-			href="https://github.com/sponsors/Dreamlinerm"
-			target="_blank"
-		>
-			<i-mdi-gift
-				height="2rem"
-				width="2rem"
-			/>
-			{{ $t("donate") }}
-		</a>
 	</div>
 </template>
 

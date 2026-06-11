@@ -19,8 +19,6 @@ declare module 'vue' {
     IMdiDelete: typeof import('~icons/mdi/delete')['default']
     IMdiDotsHorizontal: typeof import('~icons/mdi/dots-horizontal')['default']
     IMdiFormatListBulleted: typeof import('~icons/mdi/format-list-bulleted')['default']
-    IMdiGift: typeof import('~icons/mdi/gift')['default']
-    IMdiGithub: typeof import('~icons/mdi/github')['default']
     IMdiHelpCircle: typeof import('~icons/mdi/help-circle')['default']
     IMdiNetflix: typeof import('~icons/mdi/netflix')['default']
     IMdiTransitConnectionVariant: typeof import('~icons/mdi/transit-connection-variant')['default']

@@ -1,7 +1,5 @@
 <script setup lang="ts">
-const isFirefox = typeof browser !== "undefined"
 const version = __VERSION__
-const githubUrl = __GITHUB_URL__
 import { useFrontendStore } from "@/stores/options.store"
 // wont sync without opening once
 useFrontendStore()
@@ -154,51 +152,6 @@ watch(
 					<p>{{ $t("changelog") }}</p>
 				</RouterLink>
 			</div>
-			<div
-				v-if="!hash.endsWith('install')"
-				class="mt-auto"
-			>
-				<div class="footerBox">
-					<a
-						target="_blank"
-						class="rateLink"
-						:href="
-							isFirefox
-								? 'https://addons.mozilla.org/firefox/addon/netflix-prime-auto-skip/'
-								: 'https://chromewebstore.google.com/detail/netflixprime-auto-skip/akaimhgappllmlkadblbdknhbfghdgle'
-						"
-					>
-						<span class="rateText">{{ $t("rateNow") }}</span>
-						<img
-							:src="
-								isFirefox
-									? 'https://img.shields.io/amo/stars/NetflixPrime@Autoskip.io?color=e60010'
-									: 'https://img.shields.io/chrome-web-store/stars/akaimhgappllmlkadblbdknhbfghdgle?color=e60010'
-							"
-							alt="rating"
-							class="h-5"
-						/>
-					</a>
-					<div class="footerButtons">
-						<a
-							class="footerButton"
-							:href="githubUrl"
-							target="_blank"
-						>
-							<i-mdi-github class="w-5 h-5" />
-							GitHub
-						</a>
-						<a
-							class="footerButton"
-							href="https://github.com/sponsors/Dreamlinerm"
-							target="_blank"
-						>
-							<i-mdi-gift class="w-5 h-5" />
-							{{ $t("donate") }}
-						</a>
-					</div>
-				</div>
-			</div>
 		</div>
 		<div class="content flex flex-col overflow-y-auto w-full">
 			<div class="page">
@@ -244,29 +197,6 @@ watch(
 .icon {
 	@apply w-8 h-8 mx-1.5;
 }
-
-/* footer of the sidenav: rating + GitHub/Donate links */
-.footerBox {
-	@apply border-t border-white/10 mx-4 mb-3 pt-3 flex flex-col gap-2.5;
-}
-.rateLink {
-	@apply flex flex-col items-center gap-1 no-underline opacity-75 transition-opacity;
-}
-.rateLink:hover {
-	@apply opacity-100;
-}
-.rateText {
-	@apply text-sm text-white;
-}
-.footerButtons {
-	@apply flex flex-row justify-center gap-2;
-}
-.footerButton {
-	@apply flex flex-1 items-center justify-center gap-1.5 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-base text-white/85 no-underline transition-colors whitespace-nowrap;
-}
-.footerButton:hover {
-	@apply bg-white/15 text-white;
-}
 .wrapper {
 	@apply flex flex-row;
 }
@@ -294,12 +224,6 @@ watch(
 	}
 	.menuButton {
 		@apply m-1.5 px-2.5 py-1.5;
-	}
-	.footerBox {
-		@apply border-t-0 mx-1.5 my-1 pt-0 flex-row items-center justify-center gap-3;
-	}
-	.footerButton {
-		@apply flex-none;
 	}
 	body {
 		@apply flex-col;
