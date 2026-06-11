@@ -53,7 +53,17 @@ export async function startSharedFunctions(platform: Platforms) {
 	getDBCache()
 }
 
-// toggle Picture-in-Picture with the "p" key on any supported player
+// #region Picture-in-Picture
+// P key toggles PiP. Players like Hulu's (video.js + streaks pool) recreate
+// the <video> element frequently — even mid-playback and especially on
+// episode changes — leaving PiP attached to a dead element (black/frozen
+// window). The fix is to TRANSFER PiP to the new video the moment it starts
+// playing: Chromium skips the user-gesture requirement for
+// requestPictureInPicture while another element is still in PiP, so the
+// hand-off works without user interaction.
+let pipWanted = false
+let transferInProgress = false
+
 function startPiPShortcut() {
 	// capture phase on window so player key handlers cannot swallow the event
 	window.addEventListener(
@@ -66,22 +76,100 @@ function startPiPShortcut() {
 		},
 		true,
 	)
+	// Chrome 134+ official auto-PiP path (tab hidden), gesture-free by design
+	try {
+		navigator.mediaSession.setActionHandler("enterpictureinpicture" as MediaSessionAction, () => enterPiP(true))
+	} catch {
+		// browsers without this MediaSession action just keep the P-key toggle
+	}
+	// hand PiP over to whichever video starts playing while PiP is desired
+	document.addEventListener("play", (event) => tryTransferTo(event.target), true)
+	document.addEventListener("playing", (event) => tryTransferTo(event.target), true)
+	document.addEventListener("loadeddata", (event) => tryTransferTo(event.target), true)
+	// the player re-adds disablepictureinpicture on every new <video>; keep
+	// stripping it, once is not enough
+	new MutationObserver((mutations) => {
+		for (const mutation of mutations) {
+			const target = mutation.target as HTMLElement
+			if (target instanceof HTMLVideoElement) cleanVideo(target)
+			else if (mutation.addedNodes.length) {
+				for (const node of Array.from(mutation.addedNodes)) {
+					if (node instanceof HTMLVideoElement) cleanVideo(node)
+					else if (node instanceof HTMLElement) node.querySelectorAll?.("video").forEach((v) => cleanVideo(v))
+				}
+			}
+		}
+	}).observe(document.documentElement, {
+		childList: true,
+		subtree: true,
+		attributes: true,
+		attributeFilter: ["disablepictureinpicture"],
+	})
+	// only clear the "user wants PiP" flag on intentional exits; if the element
+	// was torn down by the player, keep it so the next play event re-attaches
+	window.addEventListener(
+		"leavepictureinpicture",
+		(event) => {
+			const video = event.target as HTMLVideoElement
+			setTimeout(() => {
+				const forced = !document.contains(video) || video.readyState === 0 || video.ended
+				if (!forced && !transferInProgress) pipWanted = false
+			}, 200)
+		},
+		true,
+	)
 }
+
+function cleanVideo(video: HTMLVideoElement) {
+	video.disablePictureInPicture = false
+	if (video.hasAttribute("disablepictureinpicture")) video.removeAttribute("disablepictureinpicture")
+}
+
+async function tryTransferTo(target: EventTarget | null) {
+	if (!pipWanted || transferInProgress) return
+	const video = target as HTMLVideoElement
+	if (!(video instanceof HTMLVideoElement)) return
+	if (video === document.pictureInPictureElement || video.ended) return
+	if (video.readyState < 2) return
+	transferInProgress = true
+	try {
+		cleanVideo(video)
+		await video.requestPictureInPicture()
+		console.log("PiP transferred to new video")
+	} catch {
+		// without an active PiP element this needs a user gesture — expected
+	} finally {
+		transferInProgress = false
+	}
+}
+
+async function enterPiP(quiet = false): Promise<boolean> {
+	try {
+		const video = document.querySelector("video") as HTMLVideoElement
+		if (!video || !document.pictureInPictureEnabled) return false
+		cleanVideo(video)
+		await video.requestPictureInPicture()
+		pipWanted = true
+		return true
+	} catch (error) {
+		if (!quiet) console.log("PiP enter failed", error)
+		return false
+	}
+}
+
 async function togglePictureInPicture() {
 	try {
 		if (document.pictureInPictureElement) {
+			pipWanted = false
 			await document.exitPictureInPicture()
 		} else {
-			const video = document.querySelector("video") as HTMLVideoElement
-			if (!video || !document.pictureInPictureEnabled) return
-			// some players (e.g. Netflix) set this attribute to block PiP
-			video.disablePictureInPicture = false
-			await video.requestPictureInPicture()
+			await enterPiP()
 		}
 	} catch (error) {
 		console.log("PiP toggle failed", error)
 	}
 }
+// #endregion
 export function getCurrentEpisodeNumber(title: string | null | undefined) {
 	if (!title) return null
 
