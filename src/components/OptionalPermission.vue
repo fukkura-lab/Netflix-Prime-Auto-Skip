@@ -19,20 +19,22 @@ async function requestUnsetPermissions() {
 <template>
 	<div
 		v-if="unsetPermissions.length > 0"
-		class="border border-error rounded-lg bg-gray-400 p-4 flex flex-col gap-2 w-fit"
+		class="rounded-xl border border-warning/40 bg-warning/10 p-4 my-3 flex flex-col gap-3 w-fit"
 	>
-		<h1>{{ $t("missingPermission") }}</h1>
+		<h2 class="text-lg font-semibold m-0 flex items-center gap-2">
+			<i-mdi-alert-circle-outline class="w-5 h-5 text-warning shrink-0" />
+			{{ $t("missingPermission") }}
+		</h2>
 		<div
 			v-for="permission in unsetPermissions"
 			:key="permission"
-			class="flex text-primary-content"
+			class="flex items-center gap-2 text-sm"
 		>
-			<div class="bg-gray-800 w-12 px-2 rounded text-error-content text-center">{{ permission }}</div>
-			->
-			<div class="bg-gray-800 rounded text-error-content px-2">{{ $t(permission + "Permission") }}</div>
+			<code class="badge badge-neutral badge-sm font-mono">{{ permission }}</code>
+			<span class="opacity-70">{{ $t(permission + "Permission") }}</span>
 		</div>
 		<button
-			class="btn btn-error w-fit"
+			class="btn btn-warning btn-sm w-fit"
 			@click="requestUnsetPermissions"
 		>
 			{{ $t("addPermissionButton") }}

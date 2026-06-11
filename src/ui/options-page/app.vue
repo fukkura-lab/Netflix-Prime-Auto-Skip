@@ -191,7 +191,7 @@ watch(
 	@apply min-w-[200px] min-h-[450px];
 }
 .page {
-	@apply p-[80px_0_0_3%] w-[97%];
+	@apply p-[32px_0_0_3%] w-[97%];
 }
 
 .icon {

@@ -41,7 +41,7 @@
 }
 
 .description {
-	@apply text-base p-[10px_80px_20px_20px];
+	@apply text-sm opacity-70 leading-relaxed mt-1 mb-3 pr-10;
 }
 
 h1,
@@ -52,7 +52,7 @@ p {
 }
 
 hr {
-	@apply my-1;
+	@apply my-3 border-base-content/10;
 }
 h1 {
 	@apply text-2xl font-bold;
@@ -64,14 +64,14 @@ h3 {
 	@apply text-lg;
 }
 @layer higher {
-	.btn {
+	.btn:not(.btn-sm):not(.btn-xs) {
 		@apply text-xl h-12 leading-9;
 	}
 }
 
 @layer globalCss {
 	p {
-		@apply text-2xl;
+		@apply text-lg;
 	}
 }
 

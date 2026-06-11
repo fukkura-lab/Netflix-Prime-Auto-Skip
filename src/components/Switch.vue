@@ -20,8 +20,8 @@ const emit = defineEmits(["update:modelValue"])
 .switch {
 	position: relative;
 	display: inline-block;
-	width: 60px;
-	height: 34px;
+	width: 44px;
+	height: 24px;
 	flex-shrink: 0;
 }
 
@@ -48,10 +48,10 @@ const emit = defineEmits(["update:modelValue"])
 .slider:before {
 	position: absolute;
 	content: "";
-	height: 26px;
-	width: 26px;
-	left: 4px;
-	bottom: 4px;
+	height: 18px;
+	width: 18px;
+	left: 3px;
+	bottom: 3px;
 	background-color: white;
 }
 
@@ -65,9 +65,9 @@ input:checked + .slider:hover {
 }
 
 input:checked + .slider:before {
-	-webkit-transform: translateX(26px);
-	-ms-transform: translateX(26px);
-	transform: translateX(26px);
+	-webkit-transform: translateX(20px);
+	-ms-transform: translateX(20px);
+	transform: translateX(20px);
 }
 
 /* Rounded sliders */
